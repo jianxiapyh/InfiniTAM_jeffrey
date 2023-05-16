@@ -151,11 +151,15 @@ struct mesh_demo_type : public switchboard::event{
     const std::vector<unsigned> color_r;
     const std::vector<unsigned> color_g;
     const std::vector<unsigned> color_b;
-    const std::vector<int> face_1;
-    const std::vector<int> face_2;
-    const std::vector<int> face_3;
+    const std::vector<unsigned> face_1;
+    const std::vector<unsigned> face_2;
+    const std::vector<unsigned> face_3;
     unsigned id;
     std::string path;
+    mesh_demo_type(unsigned id_, std::string path_)
+        : id{id_}
+        , path{path_}{}
+
     mesh_demo_type(
             const std::vector<float>& index_x_,
             const std::vector<float>& index_y_,
@@ -163,9 +167,9 @@ struct mesh_demo_type : public switchboard::event{
             const std::vector<unsigned>& color_r_,
             const std::vector<unsigned>& color_g_,
             const std::vector<unsigned>& color_b_,
-            const std::vector<int>& face_1_,
-            const std::vector<int>& face_2_,
-            const std::vector<int>& face_3_,
+            const std::vector<unsigned>& face_1_,
+            const std::vector<unsigned>& face_2_,
+            const std::vector<unsigned>& face_3_,
             unsigned id_,
             std::string path_)
         : index_x{index_x_}

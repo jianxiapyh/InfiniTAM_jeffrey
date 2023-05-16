@@ -191,7 +191,7 @@ class infinitam : public plugin {
                        std::string merge_name = file_name + this->scene_number + "_" + std::to_string(frame_count) +".obj";
                        
                        mesh->WriteOBJ(merge_name.c_str());
-                       _m_mesh.put(_m_mesh.allocate<mesh_demo_type>(mesh_demo_type{ nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, frame_count, merge_name}));
+                       _m_mesh.put(_m_mesh.allocate<mesh_demo_type>(mesh_demo_type{frame_count, merge_name}));
                    }
                 }
                 
