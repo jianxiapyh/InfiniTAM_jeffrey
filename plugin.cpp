@@ -255,17 +255,17 @@ class infinitam : public plugin {
         ITMLib::ITMMesh *mesh;
         
         //draco related variables
-        std::unique_ptr<draco::ExpertEncoder> expert_encoder;
-        draco::Encoder encoder;
-        int pos_quantization_bits = 11;
-        int tex_coords_quantization_bits = 10;
-        bool tex_coords_deleted = false;
-        int normals_quantization_bits = 8;
-        bool normals_deleted = false;
-        int generic_quantization_bits = 8;
-        bool generic_deleted = false;
-        int compression_level = 1;
-        int speed = 10-compression_level;
+        //std::unique_ptr<draco::ExpertEncoder> expert_encoder;
+        //draco::Encoder encoder;
+        //int pos_quantization_bits = 11;
+        //int tex_coords_quantization_bits = 10;
+        //bool tex_coords_deleted = false;
+        //int normals_quantization_bits = 8;
+        //bool normals_deleted = false;
+        //int generic_quantization_bits = 8;
+        //bool generic_deleted = false;
+        //int compression_level = 1;
+        //int speed = 10-compression_level;
 
         std::vector<char> compressed_mesh;
         std::string scene_number;
