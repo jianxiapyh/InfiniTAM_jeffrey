@@ -11,17 +11,17 @@
 //pyh for ITM Mesh
 #include "../../ITMLib/Engines/Meshing/ITMMeshingEngineFactory.h"
 //pyh add for draco
-#include <draco/io/ply_reader.h>
-#include <draco/io/file_reader_factory.h>
-#include <draco/io/file_writer_factory.h>
-#include <draco/io/stdio_file_reader.h>
-#include <draco/io/stdio_file_writer.h>
-#include "draco/io/ply_property_writer.h"
-#include "draco/io/ply_decoder.h"
-#include "draco/compression/encode.h"
-#include "draco/compression/expert_encode.h"
-#include "draco/io/file_utils.h"
-#include <sstream>
+//#include <draco/io/ply_reader.h>
+//#include <draco/io/file_reader_factory.h>
+//#include <draco/io/file_writer_factory.h>
+//#include <draco/io/stdio_file_reader.h>
+//#include <draco/io/stdio_file_writer.h>
+//#include "draco/io/ply_property_writer.h"
+//#include "draco/io/ply_decoder.h"
+//#include "draco/compression/encode.h"
+//#include "draco/compression/expert_encode.h"
+//#include "draco/io/file_utils.h"
+//#include <sstream>
 
 using namespace InfiniTAM::Engine;
 using namespace InputSource;
@@ -67,8 +67,8 @@ void CLIEngine::Initialise(ImageSourceEngine *imageSource, IMUSourceEngine *imuS
     mesh=new ITMMesh(MEMORYDEVICE_CUDA,0); 
     mesh_count = 0;
     //pyh intialize draco reader
-    draco::FileReaderFactory::RegisterReader(draco::StdioFileReader::Open);
-    draco::FileWriterFactory::RegisterWriter(draco::StdioFileWriter::Open);
+    //draco::FileReaderFactory::RegisterReader(draco::StdioFileReader::Open);
+    //draco::FileWriterFactory::RegisterWriter(draco::StdioFileWriter::Open);
     printf("initialised.\n");
 }
 
@@ -137,135 +137,135 @@ bool CLIEngine::ProcessFrame()
 			//mainEngine->GetImage(outImage, ITMMainEngine::InfiniTAM_IMAGE_SCENERAYCAST);
 
             //pyh add GetMesh Function
-            auto start = std::chrono::high_resolution_clock::now();
-            mainEngine->GetMesh(mesh);
-            //I need to take into acccount mesh transfer time
-            ORUtils::MemoryBlock<ITMLib::ITMMesh::Triangle> *cpu_triangles;
-            cpu_triangles = new ORUtils::MemoryBlock<ITMLib::ITMMesh::Triangle>(mesh->noMaxTriangles, MEMORYDEVICE_CPU);
-            cpu_triangles->SetFrom(mesh->triangles, ORUtils::MemoryBlock<ITMLib::ITMMesh::Triangle>::CUDA_TO_CPU);
-            ITMLib::ITMMesh::Triangle *triangleArray = cpu_triangles->GetData(MEMORYDEVICE_CPU);
-            auto end = std::chrono::high_resolution_clock::now();
-            auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
-            double duration_ms = duration / 1000.0;
-            printf("Time to get mesh: %.3f milliseconds\n", duration_ms);
+            //auto start = std::chrono::high_resolution_clock::now();
+            //mainEngine->GetMesh(mesh);
+            ////I need to take into acccount mesh transfer time
+            //ORUtils::MemoryBlock<ITMLib::ITMMesh::Triangle> *cpu_triangles;
+            //cpu_triangles = new ORUtils::MemoryBlock<ITMLib::ITMMesh::Triangle>(mesh->noMaxTriangles, MEMORYDEVICE_CPU);
+            //cpu_triangles->SetFrom(mesh->triangles, ORUtils::MemoryBlock<ITMLib::ITMMesh::Triangle>::CUDA_TO_CPU);
+            //ITMLib::ITMMesh::Triangle *triangleArray = cpu_triangles->GetData(MEMORYDEVICE_CPU);
+            //auto end = std::chrono::high_resolution_clock::now();
+            //auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
+            //double duration_ms = duration / 1000.0;
+            //printf("Time to get mesh: %.3f milliseconds\n", duration_ms);
             
             
-            std::string file_name = "ITM-BE_";
-            //std::string merge_name = file_name + this->scene_name + "_" + std::to_string(mesh_count) +".obj";
-            
-            //mesh->WriteOBJ(merge_name.c_str());
+            //std::string file_name = "ITM-BE_";
+            ////std::string merge_name = file_name + this->scene_name + "_" + std::to_string(mesh_count) +".obj";
+            //
+            ////mesh->WriteOBJ(merge_name.c_str());
+            ////auto end_v2 = std::chrono::high_resolution_clock::now();
+            ////duration = std::chrono::duration_cast<std::chrono::microseconds>(end_v2 - end).count();
+            ////duration_ms = duration / 1000.0;
+            ////printf("Time to write mesh out: %.3f milliseconds\n", duration_ms);
+            //
+            ////pyh essentially here is just implemeting a WriteDraco for ITMMesh
+            //
+            ////TODO DEBUG:
+            ////write this mesh directly into google draco buffer or directly into ply_reader
+            ////4/23 attempt write to draco::buffer instead
+            //unsigned vertices_size = mesh->noTotalTriangles *3;
+            //std::ostringstream ply_info;
+            //ply_info << "ply\n";
+            //ply_info << "format ascii 1.0\n"; 
+            //ply_info << "element vertex " << vertices_size << "\n";
+            //ply_info << "property float x\n";
+            //ply_info << "property float y\n";
+            //ply_info << "property float z\n";
+            //ply_info << "property uint8 red\n";
+            //ply_info << "property uint8 green\n";
+            //ply_info << "property uint8 blue\n";
+            //ply_info << "element face "<< mesh->noTotalTriangles <<"\n";
+            //ply_info << "property list uint8 int vertex_indices\n";
+            //ply_info << "end_header\n";
+            ////printf("vertices size %u \n", vertices_size);
+            //for(unsigned entry = 0; entry < mesh->noTotalTriangles; ++entry){
+            //    ply_info 
+            //        << triangleArray[entry].p0.x << " " 
+            //        << triangleArray[entry].p0.y << " " 
+            //        << triangleArray[entry].p0.z << " "
+            //        << static_cast<int>(triangleArray[entry].clr0.r) << " "
+            //        << static_cast<int>(triangleArray[entry].clr0.g) << " "
+            //        << static_cast<int>(triangleArray[entry].clr0.b) << "\n";
+            //    ply_info 
+            //        << triangleArray[entry].p1.x << " " 
+            //        << triangleArray[entry].p1.y << " " 
+            //        << triangleArray[entry].p1.z << " "
+            //        << static_cast<int>(triangleArray[entry].clr1.r) << " "
+            //        << static_cast<int>(triangleArray[entry].clr1.g) << " "
+            //        << static_cast<int>(triangleArray[entry].clr1.b) << "\n";
+            //    ply_info 
+            //        << triangleArray[entry].p2.x << " " 
+            //        << triangleArray[entry].p2.y << " " 
+            //        << triangleArray[entry].p2.z << " "
+            //        << static_cast<int>(triangleArray[entry].clr2.r) << " "
+            //        << static_cast<int>(triangleArray[entry].clr2.g) << " "
+            //        << static_cast<int>(triangleArray[entry].clr2.b) << "\n";
+            //                               
+            //}
+
+            //for(unsigned entry = 0; entry < mesh->noTotalTriangles; ++entry){
+            //    unsigned v1 = entry*3 + 2;
+            //    unsigned v2 = entry*3 + 1;
+            //    unsigned v3 = entry*3 + 0;
+            //    ply_info << "3 "<< v1 <<" "<<v2 <<" "<<v3<<"\n";
+            //}
+            //std::vector<char> buffer;
+            //std::string str = ply_info.str();
+            //buffer.resize(str.size());
+            //std::copy(str.begin(), str.end(), buffer.begin());
+
             //auto end_v2 = std::chrono::high_resolution_clock::now();
             //duration = std::chrono::duration_cast<std::chrono::microseconds>(end_v2 - end).count();
             //duration_ms = duration / 1000.0;
-            //printf("Time to write mesh out: %.3f milliseconds\n", duration_ms);
-            
-            //pyh essentially here is just implemeting a WriteDraco for ITMMesh
-            
-            //TODO DEBUG:
-            //write this mesh directly into google draco buffer or directly into ply_reader
-            //4/23 attempt write to draco::buffer instead
-            unsigned vertices_size = mesh->noTotalTriangles *3;
-            std::ostringstream ply_info;
-            ply_info << "ply\n";
-            ply_info << "format ascii 1.0\n"; 
-            ply_info << "element vertex " << vertices_size << "\n";
-            ply_info << "property float x\n";
-            ply_info << "property float y\n";
-            ply_info << "property float z\n";
-            ply_info << "property uint8 red\n";
-            ply_info << "property uint8 green\n";
-            ply_info << "property uint8 blue\n";
-            ply_info << "element face "<< mesh->noTotalTriangles <<"\n";
-            ply_info << "property list uint8 int vertex_indices\n";
-            ply_info << "end_header\n";
-            //printf("vertices size %u \n", vertices_size);
-            for(unsigned entry = 0; entry < mesh->noTotalTriangles; ++entry){
-                ply_info 
-                    << triangleArray[entry].p0.x << " " 
-                    << triangleArray[entry].p0.y << " " 
-                    << triangleArray[entry].p0.z << " "
-                    << static_cast<int>(triangleArray[entry].clr0.r) << " "
-                    << static_cast<int>(triangleArray[entry].clr0.g) << " "
-                    << static_cast<int>(triangleArray[entry].clr0.b) << "\n";
-                ply_info 
-                    << triangleArray[entry].p1.x << " " 
-                    << triangleArray[entry].p1.y << " " 
-                    << triangleArray[entry].p1.z << " "
-                    << static_cast<int>(triangleArray[entry].clr1.r) << " "
-                    << static_cast<int>(triangleArray[entry].clr1.g) << " "
-                    << static_cast<int>(triangleArray[entry].clr1.b) << "\n";
-                ply_info 
-                    << triangleArray[entry].p2.x << " " 
-                    << triangleArray[entry].p2.y << " " 
-                    << triangleArray[entry].p2.z << " "
-                    << static_cast<int>(triangleArray[entry].clr2.r) << " "
-                    << static_cast<int>(triangleArray[entry].clr2.g) << " "
-                    << static_cast<int>(triangleArray[entry].clr2.b) << "\n";
-                                           
-            }
+            //printf("Time to write mesh to buffer: %.3f milliseconds\n", duration_ms);
+            ////std::string merge_name = file_name + this->scene_name + "_" + std::to_string(mesh_count) +".ply";
+            ////std::ofstream outfile(merge_name, std::ios::out);
+            ////if(!outfile){throw std::runtime_error("failed to openfile");}
+            ////outfile.write(buffer.data(),buffer.size());
+            ////outfile.close();
 
-            for(unsigned entry = 0; entry < mesh->noTotalTriangles; ++entry){
-                unsigned v1 = entry*3 + 2;
-                unsigned v2 = entry*3 + 1;
-                unsigned v3 = entry*3 + 0;
-                ply_info << "3 "<< v1 <<" "<<v2 <<" "<<v3<<"\n";
-            }
-            std::vector<char> buffer;
-            std::string str = ply_info.str();
-            buffer.resize(str.size());
-            std::copy(str.begin(), str.end(), buffer.begin());
+            //draco::PlyDecoder *ply_decoder = new draco::PlyDecoder();
+            //ply_decoder->buffer_.Init(&buffer[0], buffer.size());
+            //printf("buffer size %zu\n",ply_decoder->buffer_.data_size_);
+            //
+            //std::unique_ptr<draco::Mesh> draco_mesh(new draco::Mesh()); 
+            //ply_decoder->DecodeFromBuffer(&ply_decoder->buffer_, draco_mesh.get());
 
-            auto end_v2 = std::chrono::high_resolution_clock::now();
-            duration = std::chrono::duration_cast<std::chrono::microseconds>(end_v2 - end).count();
-            duration_ms = duration / 1000.0;
-            printf("Time to write mesh to buffer: %.3f milliseconds\n", duration_ms);
-            //std::string merge_name = file_name + this->scene_name + "_" + std::to_string(mesh_count) +".ply";
-            //std::ofstream outfile(merge_name, std::ios::out);
-            //if(!outfile){throw std::runtime_error("failed to openfile");}
-            //outfile.write(buffer.data(),buffer.size());
-            //outfile.close();
+            //std::unique_ptr<draco::PointCloud> draco_pc;
+            //draco::Mesh *temp_mesh = draco_mesh.get();
+            //printf("mesh face #: %u\n", temp_mesh->num_faces());
+            //draco_pc = std::move(draco_mesh);
+            //
+            //int pos_quantization_bits = 11;
+            //int tex_coords_quantization_bits = 10;
+            //bool tex_coords_deleted = false;
+            //int normals_quantization_bits = 8;
+            //bool normals_deleted = false;
+            //int generic_quantization_bits = 8;
+            //bool generic_deleted = false;
+            //int compression_level = 7;
+            //draco::Encoder encoder;
+            //encoder.SetAttributeQuantization(draco::GeometryAttribute::POSITION,pos_quantization_bits);
+            //encoder.SetAttributeQuantization(draco::GeometryAttribute::TEX_COORD,tex_coords_quantization_bits);
+            //encoder.SetAttributeQuantization(draco::GeometryAttribute::NORMAL,normals_quantization_bits);
+            //encoder.SetAttributeQuantization(draco::GeometryAttribute::GENERIC,generic_quantization_bits);
+            //int speed = 10-compression_level;
+            //encoder.SetSpeedOptions(speed, speed);
 
-            draco::PlyDecoder *ply_decoder = new draco::PlyDecoder();
-            ply_decoder->buffer_.Init(&buffer[0], buffer.size());
-            printf("buffer size %zu\n",ply_decoder->buffer_.data_size_);
-            
-            std::unique_ptr<draco::Mesh> draco_mesh(new draco::Mesh()); 
-            ply_decoder->DecodeFromBuffer(&ply_decoder->buffer_, draco_mesh.get());
-
-            std::unique_ptr<draco::PointCloud> draco_pc;
-            draco::Mesh *temp_mesh = draco_mesh.get();
-            printf("mesh face #: %u\n", temp_mesh->num_faces());
-            draco_pc = std::move(draco_mesh);
-            
-            int pos_quantization_bits = 11;
-            int tex_coords_quantization_bits = 10;
-            bool tex_coords_deleted = false;
-            int normals_quantization_bits = 8;
-            bool normals_deleted = false;
-            int generic_quantization_bits = 8;
-            bool generic_deleted = false;
-            int compression_level = 7;
-            draco::Encoder encoder;
-            encoder.SetAttributeQuantization(draco::GeometryAttribute::POSITION,pos_quantization_bits);
-            encoder.SetAttributeQuantization(draco::GeometryAttribute::TEX_COORD,tex_coords_quantization_bits);
-            encoder.SetAttributeQuantization(draco::GeometryAttribute::NORMAL,normals_quantization_bits);
-            encoder.SetAttributeQuantization(draco::GeometryAttribute::GENERIC,generic_quantization_bits);
-            int speed = 10-compression_level;
-            encoder.SetSpeedOptions(speed, speed);
-
-            std::unique_ptr<draco::ExpertEncoder> expert_encoder;
-            expert_encoder.reset(new draco::ExpertEncoder(*temp_mesh));
-            expert_encoder->Reset(encoder.CreateExpertEncoderOptions(*draco_pc));
-            
-            draco::EncoderBuffer draco_buffer;
-            const draco::Status status = expert_encoder->EncodeToBuffer(&draco_buffer);
-            if(!status.ok()){
-                printf("Failed to encode the mesh\n");
-            }
-            auto end_v3 = std::chrono::high_resolution_clock::now();
-            duration = std::chrono::duration_cast<std::chrono::microseconds>(end_v3 - end_v2).count();
-            duration_ms = duration / 1000.0;
-            printf("Time to encode: %.3f milliseconds\n", duration_ms);
+            //std::unique_ptr<draco::ExpertEncoder> expert_encoder;
+            //expert_encoder.reset(new draco::ExpertEncoder(*temp_mesh));
+            //expert_encoder->Reset(encoder.CreateExpertEncoderOptions(*draco_pc));
+            //
+            //draco::EncoderBuffer draco_buffer;
+            //const draco::Status status = expert_encoder->EncodeToBuffer(&draco_buffer);
+            //if(!status.ok()){
+            //    printf("Failed to encode the mesh\n");
+            //}
+            //auto end_v3 = std::chrono::high_resolution_clock::now();
+            //duration = std::chrono::duration_cast<std::chrono::microseconds>(end_v3 - end_v2).count();
+            //duration_ms = duration / 1000.0;
+            //printf("Time to encode: %.3f milliseconds\n", duration_ms);
             //std::string draco_name = "draco" + this->scene_name + "_" + std::to_string(mesh_count) +".drc";
             //Draco::WriteBufferToFile(draco_buffer.data(), buffer.size(), draco_name);
             
@@ -407,11 +407,11 @@ bool CLIEngine::ProcessFrame()
             //             
             //////pyh delete the object we created here
             //delete ply_reader;
-            delete ply_decoder;
-            //draco_mesh=nullptr;
-            draco_pc = nullptr;
-            //expert_encoder=nullptr;
-            delete cpu_triangles;
+            //delete ply_decoder;
+            ////draco_mesh=nullptr;
+            //draco_pc = nullptr;
+            ////expert_encoder=nullptr;
+            //delete cpu_triangles;
             
             
             //load the obj
