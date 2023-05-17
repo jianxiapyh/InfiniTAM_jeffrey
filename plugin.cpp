@@ -104,13 +104,13 @@ class infinitam : public plugin {
             latest_mesh = new ITMLib::ITMMesh(MEMORYDEVICE_CUDA,0);
             reconstructedImage = new ITMUChar4Image(calib->intrinsics_d.imgSize, true, false);
             mesh=new ITMLib::ITMMesh(MEMORYDEVICE_CUDA,0);
-            draco::FileReaderFactory::RegisterReader(draco::StdioFileReader::Open);
-            draco::FileWriterFactory::RegisterWriter(draco::StdioFileWriter::Open);
-            encoder.SetAttributeQuantization(draco::GeometryAttribute::POSITION,pos_quantization_bits);
-            encoder.SetAttributeQuantization(draco::GeometryAttribute::TEX_COORD,tex_coords_quantization_bits);
-            encoder.SetAttributeQuantization(draco::GeometryAttribute::NORMAL,normals_quantization_bits);
-            encoder.SetAttributeQuantization(draco::GeometryAttribute::GENERIC,generic_quantization_bits);
-            encoder.SetSpeedOptions(speed, speed);
+            //draco::FileReaderFactory::RegisterReader(draco::StdioFileReader::Open);
+            //draco::FileWriterFactory::RegisterWriter(draco::StdioFileWriter::Open);
+            //encoder.SetAttributeQuantization(draco::GeometryAttribute::POSITION,pos_quantization_bits);
+            //encoder.SetAttributeQuantization(draco::GeometryAttribute::TEX_COORD,tex_coords_quantization_bits);
+            //encoder.SetAttributeQuantization(draco::GeometryAttribute::NORMAL,normals_quantization_bits);
+            //encoder.SetAttributeQuantization(draco::GeometryAttribute::GENERIC,generic_quantization_bits);
+            //encoder.SetSpeedOptions(speed, speed);
 
             //iterate between different mesh compression modules
             queue_choice=0;
