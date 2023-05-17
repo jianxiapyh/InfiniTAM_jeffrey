@@ -15,7 +15,7 @@ include_directories(${EIGEN3_INCLUDE_DIR})
 find_package(OpenCV 3.4.6 EXACT REQUIRED )
 include_directories( ${OpenCV_INCLUDE_DIRS})
 
-find_library(DRACO_LIB draco HINTS /usr/local/lib) 
+#find_library(DRACO_LIB draco HINTS /usr/local/lib) 
 
 # Prefer GLVND
 if (POLICY CMP0072)
@@ -77,6 +77,7 @@ ADD_SUBDIRECTORY(ITMLib)
 ADD_SUBDIRECTORY(MiniSlamGraphLib)
 ADD_SUBDIRECTORY(ORUtils)
 add_library(plugin SHARED plugin.cpp)
-TARGET_LINK_LIBRARIES(plugin ${DRACO_LIB} CLIEngine InputSource ITMLib MiniSlamGraphLib ORUtils FernRelocLib)
+#TARGET_LINK_LIBRARIES(plugin ${DRACO_LIB} CLIEngine InputSource ITMLib MiniSlamGraphLib ORUtils FernRelocLib)
+TARGET_LINK_LIBRARIES(plugin CLIEngine InputSource ITMLib MiniSlamGraphLib ORUtils FernRelocLib)
 INCLUDE(${PROJECT_SOURCE_DIR}/cmake/UseBoost.cmake)
 target_link_libraries(plugin ${Boost_LIBRARIES} ${OpenCV_LIBS})

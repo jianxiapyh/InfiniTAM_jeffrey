@@ -12,16 +12,16 @@
 #include "ORUtils/FileUtils.h"
 
 //draco related libraries
-#include <draco/io/ply_reader.h>
-#include <draco/io/file_reader_factory.h>
-#include <draco/io/file_writer_factory.h>
-#include <draco/io/stdio_file_reader.h>
-#include <draco/io/stdio_file_writer.h>
-#include "draco/io/ply_property_writer.h"
-#include "draco/io/ply_decoder.h"
-#include "draco/compression/encode.h"
-#include "draco/compression/expert_encode.h"
-#include "draco/io/file_utils.h"
+//#include <draco/io/ply_reader.h>
+//#include <draco/io/file_reader_factory.h>
+//#include <draco/io/file_writer_factory.h>
+//#include <draco/io/stdio_file_reader.h>
+//#include <draco/io/stdio_file_writer.h>
+//#include "draco/io/ply_property_writer.h"
+//#include "draco/io/ply_decoder.h"
+//#include "draco/compression/encode.h"
+//#include "draco/compression/expert_encode.h"
+//#include "draco/io/file_utils.h"
 
 #include <iostream>
 #include <opencv/cv.hpp>
