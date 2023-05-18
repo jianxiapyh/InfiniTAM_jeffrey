@@ -67,7 +67,7 @@ ENDIF()
 
 message(STATUS "main CUDA Include Directory: ${CUDA_INCLUDE_DIRS}")
 message(STATUS "main CUDA Library Directory: ${CUDA_LIBRARY_DIRS}")
-
+message(STATUS "CUDA LIBRARY Variable: ${CUDA_LIBRARIES}")
 
 ######################
 # Add subdirectories #
